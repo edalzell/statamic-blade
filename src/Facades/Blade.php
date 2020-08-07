@@ -2,6 +2,7 @@
 
 namespace Edalzell\Blade\Facades;
 
+use Edalzell\Blade\Directives;
 use Illuminate\Support\Facades\Facade;
 
 /**
