@@ -16,8 +16,25 @@ class ServiceProvider extends AddonServiceProvider
 
     private function bootDirectives()
     {
+        $this->bootBard();
+        $this->bootCollection();
+    }
+
+    private function bootBard()
+    {
+        Blade::directive('bard', function ($expression) {
+            return "<?php foreach (Facades\Edalzell\Blade\Directives\Bard::handle(${expression}) as \$set) { ?>";
+        });
+
+        Blade::directive('endbard', function () {
+            return '<?php } ?>';
+        });
+    }
+
+    private function bootCollection()
+    {
         Blade::directive('collection', function ($expression) {
-            return "<?php foreach (Edalzell\Blade\Facades\Blade::collection(${expression}) as \$entry) { ?>";
+            return "<?php foreach (Facades\Edalzell\Blade\Directives\Collection::handle(${expression}) as \$entry) { ?>";
         });
 
         Blade::directive('endcollection', function () {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Edalzell\Blade;
+namespace Edalzell\Blade\Directives;
 
 use Statamic\Facades\Collection as CollectionAPI;
 use Statamic\Stache\Query\EntryQueryBuilder;
 use Statamic\Support\Arr;
 
-class Directives
+class Collection
 {
     private EntryQueryBuilder $collectionQuery;
     private array $params;
 
-    public function collection(string $handle, array $params = [])
+    public function handle(string $handle, array $params = [])
     {
         $this->params = $params;
         $this->collectionQuery = CollectionAPI::find($handle)->queryEntries();
