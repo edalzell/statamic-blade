@@ -3,25 +3,29 @@
 namespace Edalzell\Blade\Directives;
 
 use Statamic\Fields\Value;
+use Statamic\Support\Arr;
 
 class Bard
 {
     public function handle(Value $data)
     {
-        $bar = collect($data->value())
-            ->map(function ($set) {
-                $plainSet = [];
-                foreach ($set as $key => $value) {
-                    if ($key == 'type') {
-                        $plainSet[$key] = $value;
-                    } elseif ($value instanceof Value) {
-                        $plainSet['content'] = $value->raw();
-                    }
-                }
+        return collect($data->value())
+            ->map(fn ($set) => $this->convertFromValueToArray($set))
+            ->all();
+    }
 
-                return $plainSet;
-            })->all();
+    private function convertFromValueToArray(array $set)
+    {
+        return [
+            'type' => Arr::get($set, 'type'),
+            'content' => $this->getFirstValueAsRaw($set),
+        ];
+    }
 
-        return $bar;
+    private function getFirstValueAsRaw($set)
+    {
+        return Arr::first($set, function ($value) {
+            return $value instanceof Value;
+        })->raw();
     }
 }
