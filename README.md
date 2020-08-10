@@ -21,10 +21,23 @@ The package will automatically register itself.
 
 ## Usage
 
+`@collection`:
+
 ```blade
  @collection('pages', ['where' => 'title:My Title,author:Erin', 'limit' => 3, 'orderBy' => 'title:desc'])
    {{ $entry['title'] }}
  @endcollection
+```
+
+`@bard`: Assuming you have Bard `content` field.
+
+```blade
+@collection('blade')
+    @bard($entry['content'])
+        <p>Type is {{ $set['type'] }}</p>
+        @include("partials/{$set['type']}", [ 'data' => $set['content']])
+    @endbard
+@endcollection
 ```
 
 ## Testing
