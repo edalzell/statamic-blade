@@ -24,8 +24,6 @@ class Bard
 
     private function getFirstValueAsRaw($set)
     {
-        return Arr::first($set, function ($value) {
-            return $value instanceof Value;
-        })->raw();
+        return Arr::first($set, fn ($value) => $value instanceof Value)->raw();
     }
 }
