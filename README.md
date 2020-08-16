@@ -21,7 +21,7 @@ The package will automatically register itself.
 
 ## Usage
 
-`@collection`:
+### Collection
 
 ```blade
  @collection('pages', ['where' => 'title:My Title,author:Erin', 'limit' => 3, 'orderBy' => 'title:desc'])
@@ -29,7 +29,7 @@ The package will automatically register itself.
  @endcollection
 ```
 
-`@bard`: Assuming you have Bard `content` field.
+### Bard
 
 ```blade
 @collection('blade')
@@ -40,7 +40,7 @@ The package will automatically register itself.
 @endcollection
 ```
 
-Two was to use globals.
+### Globals
 
 ```blade
 @globalset('footer')
