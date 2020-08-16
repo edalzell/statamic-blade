@@ -6,12 +6,13 @@ use Statamic\Facades\GlobalSet as GlobalSetAPI;
 
 class Globalset
 {
-    public function handle(string $handle, string $key = null)
+    public function handleKey(string $handle, string $key = null)
     {
-        if (! $key) {
-            return ['globalset', GlobalSetAPI::findByHandle($handle)->inCurrentSite()->data()->all()];
-        }
+        return GlobalSetAPI::findByHandle($handle)->inCurrentSite()->get($key);
+    }
 
-        return ['key', GlobalSetAPI::findByHandle($handle)->inCurrentSite()->get($key)];
+    public function handleSet(string $handle)
+    {
+        return GlobalSetAPI::findByHandle($handle)->inCurrentSite()->data()->all();
     }
 }

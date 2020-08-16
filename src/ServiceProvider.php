@@ -3,6 +3,7 @@
 namespace Edalzell\Blade;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Str;
 use Statamic\Providers\AddonServiceProvider;
 
 class ServiceProvider extends AddonServiceProvider
@@ -47,36 +48,38 @@ class ServiceProvider extends AddonServiceProvider
     {
         Blade::directive(
             'globalset',
-            fn ($expression) => '<?php
-                list($type, $value) = Facades\Edalzell\Blade\Directives\GlobalSet::handle('.$expression.');
-                if ($type == \'globalset\') {
-                    extract($value);
+            function ($expression) {
+                if (Str::contains($expression, ',')) {
+                    return $this->php('echo Facades\Edalzell\Blade\Directives\GlobalSet::handleKey('.$expression.');');
                 } else {
-                    echo $value;
+                    return $this->php('extract($globalset = Facades\Edalzell\Blade\Directives\GlobalSet::handleSet('.$expression.'));');
                 }
-            ?>'
+            }
         );
 
         Blade::directive(
             'endglobalset',
             fn () => '<?php
-                if ($type == \'array\') {
-                    foreach($globalset as $key => $value) {
-                        unset($key);
-                    }
-                    unset($globalset);
+                foreach($globalset as $key => $value) {
+                    unset($key);
                 }
+                unset($globalset);
             ?>'
         );
     }
 
     private function startPHPLoop($php)
     {
-        return "<?php {$php} { ?>";
+        return $this->php($php.' {');
     }
 
     private function endPHPLoop()
     {
-        return '<?php } ?>';
+        return $this->php('}');
+    }
+
+    private function php($php)
+    {
+        return "<?php {$php} ?>";
     }
 }
