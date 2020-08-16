@@ -40,6 +40,16 @@ The package will automatically register itself.
 @endcollection
 ```
 
+Two was to use globals.
+
+```blade
+@globalset('footer')
+    {{ $set_variable }}
+@endglobalset
+
+@globalset('footer', 'set_variable')
+```
+
 ## Testing
 
 Run the tests with:
