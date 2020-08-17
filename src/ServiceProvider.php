@@ -28,7 +28,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         Blade::directive(
             'bard',
-            fn ($expression) => $this->startPHPLoop("foreach (Facades\Edalzell\Blade\Directives\Bard::handle(${expression}) as \$set)")
+            fn ($expression) => $this->startPHPLoop("Facades\Edalzell\Blade\Directives\Bard::handle(${expression})", 'set')
         );
 
         Blade::directive('endbard', fn () => $this->endPHPLoop());
@@ -38,7 +38,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         Blade::directive(
             'collection',
-            fn ($expression) => $this->startPHPLoop("foreach (Facades\Edalzell\Blade\Directives\Collection::handle(${expression}) as \$entry)")
+            fn ($expression) => $this->startPHPLoop("Facades\Edalzell\Blade\Directives\Collection::handle(${expression})", 'entry')
         );
 
         Blade::directive('endcollection', fn () => $this->endPHPLoop());
@@ -68,9 +68,9 @@ class ServiceProvider extends AddonServiceProvider
         );
     }
 
-    private function startPHPLoop($php)
+    private function startPHPLoop($arrayStatement, $as)
     {
-        return $this->php($php.' {');
+        return $this->php("foreach(${arrayStatement} as $${as}) {");
     }
 
     private function endPHPLoop()
