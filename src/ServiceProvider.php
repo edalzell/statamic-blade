@@ -51,9 +51,9 @@ class ServiceProvider extends AddonServiceProvider
             function ($expression) {
                 if (Str::contains($expression, ',')) {
                     return $this->php('echo Facades\Edalzell\Blade\Directives\GlobalSet::handleKey('.$expression.');');
-                } else {
-                    return $this->php('extract($globalset = Facades\Edalzell\Blade\Directives\GlobalSet::handleSet('.$expression.'));');
                 }
+
+                return $this->php('extract($globalset = Facades\Edalzell\Blade\Directives\GlobalSet::handleSet('.$expression.'));');
             }
         );
 
