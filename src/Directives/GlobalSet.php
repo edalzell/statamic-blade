@@ -4,7 +4,7 @@ namespace Edalzell\Blade\Directives;
 
 use Statamic\Facades\GlobalSet as GlobalSetAPI;
 
-class Globalset
+class GlobalSet
 {
     public function handleKey(string $handle, string $key = null)
     {
