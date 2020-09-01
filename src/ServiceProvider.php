@@ -2,9 +2,10 @@
 
 namespace Edalzell\Blade;
 
+use Edalzell\Blade\Directives\Glide;
 use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Str;
 use Statamic\Providers\AddonServiceProvider;
+use Statamic\Support\Str;
 
 class ServiceProvider extends AddonServiceProvider
 {
@@ -21,6 +22,7 @@ class ServiceProvider extends AddonServiceProvider
     {
         $this->bootBard();
         $this->bootCollection();
+        $this->bootGlide();
         $this->bootGlobal();
     }
 
@@ -44,6 +46,19 @@ class ServiceProvider extends AddonServiceProvider
         Blade::directive('endcollection', fn () => $this->endPHPLoop());
     }
 
+    private function bootGlide()
+    {
+        Blade::directive(
+            'glide',
+            fn ($expression) => $this->asArray('glide', Glide::class, 'handle', $expression)
+        );
+
+        Blade::directive(
+            'endglide',
+            fn () => $this->endAsArray('glide')
+        );
+    }
+
     private function bootGlobal()
     {
         Blade::directive(
@@ -59,13 +74,29 @@ class ServiceProvider extends AddonServiceProvider
 
         Blade::directive(
             'endglobalset',
-            fn () => '<?php
-                foreach($globalset as $key => $value) {
+            fn () => $this->endAsArray('globalset')
+        );
+    }
+
+    private function asArray($key, $class, $method, $params)
+    {
+        return $this->php("extract($${key} = Facades\\${class}::${method}(${params}));");
+    }
+
+    private function asString($class, $method, $params)
+    {
+        return $this->php("echo Facades\\${class}::${method}(${params}));");
+    }
+
+    private function endAsArray($variable)
+    {
+        return
+            '<?php
+                foreach($'.$variable.' as $key => $value) {
                     unset($key);
                 }
-                unset($globalset);
-            ?>'
-        );
+                unset($'.$variable.');
+            ?>';
     }
 
     private function startPHPLoop($arrayStatement, $as)
