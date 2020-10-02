@@ -2,6 +2,8 @@
 
 namespace Edalzell\Blade;
 
+use Edalzell\Blade\Directives\Bard;
+use Edalzell\Blade\Directives\Collection;
 use Edalzell\Blade\Directives\Glide;
 use Edalzell\Blade\Directives\GlobalSet;
 use Edalzell\Blade\Directives\Nav;
@@ -33,20 +35,20 @@ class ServiceProvider extends AddonServiceProvider
     {
         Blade::directive(
             'bard',
-            fn ($expression) => $this->startPHPLoop("Facades\Edalzell\Blade\Directives\Bard::handle(${expression})", 'set')
+            fn ($expression) => $this->asLoop(Bard::class, 'handle', $expression, 'set')
         );
 
-        Blade::directive('endbard', fn () => $this->endPHPLoop());
+        Blade::directive('endbard', fn () => $this->endAsLoop());
     }
 
     private function bootCollection()
     {
         Blade::directive(
             'collection',
-            fn ($expression) => $this->startPHPLoop("Facades\Edalzell\Blade\Directives\Collection::handle(${expression})", 'entry')
+            fn ($expression) => $this->asLoop(Collection::class, 'handle', $expression, 'entry')
         );
 
-        Blade::directive('endcollection', fn () => $this->endPHPLoop());
+        Blade::directive('endcollection', fn () => $this->endAsLoop());
     }
 
     private function bootGlide()
@@ -72,7 +74,6 @@ class ServiceProvider extends AddonServiceProvider
                 }
 
                 return $this->asArray('globalset', GlobalSet::class, 'handleSet', $expression);
-                // return $this->php('extract($globalset = Facades\Edalzell\Blade\Directives\GlobalSet::handleSet('.$expression.'));');
             }
         );
 
@@ -86,12 +87,12 @@ class ServiceProvider extends AddonServiceProvider
     {
         Blade::directive(
             'nav',
-            fn ($expression) => $this->asArray('nav', Nav::class, 'handleNav', $expression)
+            fn ($expression) => $this->asLoop(Nav::class, 'handleNav', $expression, 'item')
         );
 
         Blade::directive(
             'endnav',
-            fn () => $this->endAsArray('nav')
+            fn () => $this->endAsLoop('nav')
         );
     }
 
@@ -116,12 +117,12 @@ class ServiceProvider extends AddonServiceProvider
             ?>';
     }
 
-    private function startPHPLoop($arrayStatement, $as)
+    private function asLoop($class, $method, $params, $as)
     {
-        return $this->php("foreach(${arrayStatement} as $${as}) {");
+        return $this->php("foreach(Facades\\${class}::${method}(${params}) as $${as}) {");
     }
 
-    private function endPHPLoop()
+    private function endAsLoop()
     {
         return $this->php('}');
     }
