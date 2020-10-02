@@ -58,7 +58,7 @@ The package will automatically register itself.
 
 You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as the `nav` tag.
 ```blade
-@nav('collection::pages', ['from' => "/", 'show_unpublished' => true, 'include_home' => true])
+@nav('collection::pages', ['from' => '/', 'show_unpublished' => true, 'include_home' => true])
     {{ $item['title'] }}
 @endnav
 ```
