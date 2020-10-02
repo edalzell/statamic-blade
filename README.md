@@ -48,6 +48,21 @@ The package will automatically register itself.
 @globalset('footer', 'set_variable')
 ```
 
+### Nav
+
+```blade
+@nav('footer')
+    {{ $item['title'] }}
+@endnav
+```
+
+You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as the `nav` tag.
+```blade
+@nav('collection::pages', ['from' => "/", 'show_unpublished' => true, 'include_home' => true])
+    {{ $item['title'] }}
+@endnav
+```
+
 ## Testing
 
 Run the tests with:
