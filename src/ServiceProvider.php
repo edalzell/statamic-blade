@@ -3,6 +3,7 @@
 namespace Edalzell\Blade;
 
 use Edalzell\Blade\Directives\Glide;
+use Edalzell\Blade\Directives\GlobalSet;
 use Illuminate\Support\Facades\Blade;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Support\Str;
@@ -65,10 +66,11 @@ class ServiceProvider extends AddonServiceProvider
             'globalset',
             function ($expression) {
                 if (Str::contains($expression, ',')) {
-                    return $this->php('echo Facades\Edalzell\Blade\Directives\GlobalSet::handleKey('.$expression.');');
+                    return $this->asString(GlobalSet::class, 'handleKey', $expression);
                 }
 
-                return $this->php('extract($globalset = Facades\Edalzell\Blade\Directives\GlobalSet::handleSet('.$expression.'));');
+                return $this->asArray('globalset', GlobalSet::class, 'handleSet', $expression);
+                // return $this->php('extract($globalset = Facades\Edalzell\Blade\Directives\GlobalSet::handleSet('.$expression.'));');
             }
         );
 
@@ -85,7 +87,7 @@ class ServiceProvider extends AddonServiceProvider
 
     private function asString($class, $method, $params)
     {
-        return $this->php("echo Facades\\${class}::${method}(${params}));");
+        return $this->php("echo Facades\\${class}::${method}(${params});");
     }
 
     private function endAsArray($variable)
