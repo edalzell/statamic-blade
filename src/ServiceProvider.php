@@ -4,6 +4,7 @@ namespace Edalzell\Blade;
 
 use Edalzell\Blade\Directives\Glide;
 use Edalzell\Blade\Directives\GlobalSet;
+use Edalzell\Blade\Directives\Nav;
 use Illuminate\Support\Facades\Blade;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Support\Str;
@@ -25,6 +26,7 @@ class ServiceProvider extends AddonServiceProvider
         $this->bootCollection();
         $this->bootGlide();
         $this->bootGlobal();
+        $this->bootNav();
     }
 
     private function bootBard()
@@ -77,6 +79,19 @@ class ServiceProvider extends AddonServiceProvider
         Blade::directive(
             'endglobalset',
             fn () => $this->endAsArray('globalset')
+        );
+    }
+
+    private function bootNav()
+    {
+        Blade::directive(
+            'nav',
+            fn ($expression) => $this->asArray('nav', Nav::class, 'handleNav', $expression)
+        );
+
+        Blade::directive(
+            'endnav',
+            fn () => $this->endAsArray('nav')
         );
     }
 
