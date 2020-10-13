@@ -1,12 +1,13 @@
 # Blade Directives
+
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 
 This package provides custom directives so you can easily access Statamic data in your Blade templates.
 
 ## Requirements
 
-* PHP 7.4+
-* Statamic v3
+- PHP 7.4+
+- Statamic v3
 
 ## Installation
 
@@ -17,7 +18,6 @@ composer require edalzell/blade-directives
 ```
 
 The package will automatically register itself.
-
 
 ## Usage
 
@@ -33,9 +33,9 @@ The package will automatically register itself.
 ### Collection
 
 ```blade
- @collection('pages', ['where' => 'title:My Title,author:Erin', 'limit' => 3, 'orderBy' => 'title:desc'])
-   {{ $entry['title'] }}
- @endcollection
+@collection('pages', ['where' => 'title:My Title,author:Erin', 'limit' => 3, 'orderBy' => 'title:desc'])
+    {{ $entry['title'] }}
+@endcollection
 ```
 
 ### Globals
@@ -57,6 +57,7 @@ The package will automatically register itself.
 ```
 
 You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as the `nav` tag.
+
 ```blade
 @nav('collection::pages', ['from' => '/', 'show_unpublished' => true, 'include_home' => true])
     {{ $item['title'] }}
@@ -66,6 +67,7 @@ You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as t
 ## Testing
 
 Run the tests with:
+
 ```bash
 vendor/bin/phpunit
 ```

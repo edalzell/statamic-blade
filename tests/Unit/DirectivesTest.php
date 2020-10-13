@@ -10,7 +10,7 @@ class DirectivesTest extends TestCase
     public function does_display_collection_correctly()
     {
         $blade = "@collection('foo')";
-        $expected = "<?php foreach (Facades\Edalzell\Blade\Directives\Collection::handle('foo') as \$entry) { ?>";
+        $expected = "<?php foreach(Facades\Edalzell\Blade\Directives\Collection::handle('foo') as \$entry) { ?>";
 
         $this->assertSame($expected, $this->blade->compileString($blade));
     }
@@ -19,7 +19,7 @@ class DirectivesTest extends TestCase
     public function does_display_bard_correctly()
     {
         $blade = "@bard([])";
-        $expected = "<?php foreach (Facades\Edalzell\Blade\Directives\Bard::handle([]) as \$sets) { ?>";
+        $expected = "<?php foreach(Facades\Edalzell\Blade\Directives\Bard::handle([]) as \$set) { ?>";
 
         $this->assertSame($expected, $this->blade->compileString($blade));
     }
