@@ -18,7 +18,7 @@ class DirectivesTest extends TestCase
     /** @test */
     public function does_display_bard_correctly()
     {
-        $blade = "@bard([])";
+        $blade = '@bard([])';
         $expected = "<?php foreach(Facades\Edalzell\Blade\Directives\Bard::handle([]) as \$set) { ?>";
 
         $this->assertSame($expected, $this->blade->compileString($blade));
