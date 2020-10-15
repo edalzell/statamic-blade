@@ -3,6 +3,7 @@
 namespace Edalzell\Blade\Directives;
 
 use Statamic\Tags\ArrayAccessor;
+use Statamic\Tags\Context;
 use Statamic\Tags\Structure;
 
 class Nav extends Structure
@@ -25,6 +26,7 @@ class Nav extends Structure
             'include_home' => false,
         ];
 
+        $this->context = Context::make();
         $this->params = ArrayAccessor::make(array_merge($defaults, $params));
     }
 }
