@@ -64,6 +64,18 @@ You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as t
 @endnav
 ```
 
+### Site
+
+```blade
+@site
+    {{ short_locale }}
+@endsite
+```
+
+```blade
+@site('short_locale')
+```
+
 ## Testing
 
 Run the tests with:

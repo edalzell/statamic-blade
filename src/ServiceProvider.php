@@ -7,6 +7,7 @@ use Edalzell\Blade\Directives\Collection;
 use Edalzell\Blade\Directives\Glide;
 use Edalzell\Blade\Directives\GlobalSet;
 use Edalzell\Blade\Directives\Nav;
+use Edalzell\Blade\Directives\Site;
 use Illuminate\Support\Facades\Blade;
 use Statamic\Providers\AddonServiceProvider;
 use Statamic\Support\Str;
@@ -29,6 +30,7 @@ class ServiceProvider extends AddonServiceProvider
         $this->bootGlide();
         $this->bootGlobal();
         $this->bootNav();
+        $this->bootSite();
     }
 
     private function bootBard()
@@ -96,7 +98,26 @@ class ServiceProvider extends AddonServiceProvider
         );
     }
 
-    private function asArray($key, $class, $method, $params)
+    private function bootSite()
+    {
+        Blade::directive(
+            'site',
+            function ($expression) {
+                if ($expression) {
+                    return $this->asString(Site::class, 'handleKey', $expression);
+                }
+
+                return $this->asArray('site', Site::class, 'handle');
+            }
+        );
+
+        Blade::directive(
+            'endsite',
+            fn () => $this->endAsArray('site')
+        );
+    }
+
+    private function asArray($key, $class, $method, $params = null)
     {
         return $this->php("extract($${key} = Facades\\${class}::${method}(${params}));");
     }
