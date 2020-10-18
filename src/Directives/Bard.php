@@ -18,12 +18,21 @@ class Bard
     {
         return [
             'type' => Arr::get($set, 'type'),
-            'content' => $this->getFirstValueAsRaw($set),
+            'content' => $this->getValuesAsRaw($set),
         ];
     }
 
-    private function getFirstValueAsRaw($set)
+    private function getValuesAsRaw($set)
     {
-        return Arr::first($set, fn ($value) => $value instanceof Value)->raw();
+        $values = collect($set)->filter(fn ($value) => $value instanceof Value);
+        if ($values->count() === 1) {
+            return $values
+                ->first()
+                ->raw();
+        }
+
+        return $values
+            ->mapWithKeys(fn ($value, $key) => [$key => $value->raw()])
+            ->toArray();
     }
 }

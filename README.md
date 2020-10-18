@@ -30,6 +30,16 @@ The package will automatically register itself.
 @endbard
 ```
 
+If a set has multiple fields, they will be included in `$set['content']` as an array.
+
+```blade
+@bard($entry['content'])
+    @if($entry['type'] === 'image')
+        <img src="{{ $set['content']['src'] }}" alt="{{ $set['content']['alt'] }}">
+    @endif
+@endbard
+```
+
 ### Collection
 
 ```blade
