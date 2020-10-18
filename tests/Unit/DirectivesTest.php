@@ -23,4 +23,13 @@ class DirectivesTest extends TestCase
 
         $this->assertSame($expected, $this->blade->compileString($blade));
     }
+
+    /** @test */
+    public function does_display_bard_with_many_fields_in_set_correctly()
+    {
+        $blade = "@bard([['type' => 'image', 'content' => ['src' => 'an-image-url', 'alt' => 'An alternative text']]])";
+        $expected = "<?php foreach(Facades\Edalzell\Blade\Directives\Bard::handle([['type' => 'image', 'content' => ['src' => 'an-image-url', 'alt' => 'An alternative text']]]) as \$set) { ?>";
+
+        $this->assertSame($expected, $this->blade->compileString($blade));
+    }
 }
