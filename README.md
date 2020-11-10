@@ -78,7 +78,7 @@ You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as t
 
 ```blade
 @site
-    {{ short_locale }}
+    {{ $short_locale }}
 @endsite
 ```
 
