@@ -2,12 +2,20 @@
 
 namespace Edalzell\Blade\Directives;
 
+use Edalzell\Blade\Concerns\IsDirective;
 use Statamic\Facades\Collection as CollectionAPI;
 use Statamic\Stache\Query\EntryQueryBuilder;
 use Statamic\Support\Arr;
 
 class Collection
 {
+    use IsDirective;
+
+    public $directive = 'collection';
+    public $key = 'entry';
+    public $type = 'loop';
+    public $method = 'handle';
+
     private EntryQueryBuilder $collectionQuery;
     private array $params;
 
@@ -20,7 +28,7 @@ class Collection
         $this->limit();
         $this->orderBy();
 
-        return $this->collectionQuery->get()->toAugmentedArray();
+        return $this->getAugmentedValue($this->collectionQuery->get());
     }
 
     private function filter()

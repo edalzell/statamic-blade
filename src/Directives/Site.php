@@ -2,18 +2,31 @@
 
 namespace Edalzell\Blade\Directives;
 
+use Edalzell\Blade\Concerns\IsDirective;
 use Statamic\Sites\Sites;
 use Statamic\Support\Arr;
 
 class Site
 {
-    public function handleKey(string $key = null)
-    {
-        return Arr::get(app(Sites::class)->current()->augmentedArrayData(), $key);
-    }
+    use IsDirective;
+
+    public $directive = 'site';
+    public $key = 'site';
+    public $type = 'both';
+    public $method = 'handle';
 
     public function handle()
     {
-        return app(Sites::class)->current()->augmentedArrayData();
+        return $this->getAugmentedValue($this->site());
+    }
+
+    public function handleKey(string $key = null)
+    {
+        return Arr::get($this->getAugmentedValue($this->site()), $key);
+    }
+
+    private function site()
+    {
+        return app(Sites::class)->current();
     }
 }

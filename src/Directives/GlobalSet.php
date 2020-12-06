@@ -2,17 +2,30 @@
 
 namespace Edalzell\Blade\Directives;
 
+use Edalzell\Blade\Concerns\IsDirective;
 use Statamic\Facades\GlobalSet as GlobalSetAPI;
 
 class GlobalSet
 {
+    use IsDirective;
+
+    public $directive = 'globalset';
+    public $key = 'globalset';
+    public $type = 'both';
+    public $method = 'handle';
+
     public function handleKey(string $handle, string $key = null)
     {
-        return GlobalSetAPI::findByHandle($handle)->inCurrentSite()->get($key);
+        return $this->globalSet($handle)->get($key);
     }
 
-    public function handleSet(string $handle)
+    public function handle(string $handle)
     {
-        return GlobalSetAPI::findByHandle($handle)->inCurrentSite()->data()->all();
+        return $this->getAugmentedValue($this->globalSet($handle));
+    }
+
+    private function globalSet(string $handle)
+    {
+        return GlobalSetAPI::findByHandle($handle)->inCurrentSite();
     }
 }

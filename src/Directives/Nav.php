@@ -2,12 +2,20 @@
 
 namespace Edalzell\Blade\Directives;
 
+use Edalzell\Blade\Concerns\IsDirective;
 use Statamic\Tags\ArrayAccessor;
 use Statamic\Tags\Context;
 use Statamic\Tags\Structure;
 
 class Nav extends Structure
 {
+    use IsDirective;
+
+    public $directive = 'nav';
+    public $key = 'item';
+    public $method = 'handleNav';
+    public $type = 'loop';
+
     public function handleNav(string $handle, $params = [])
     {
         $this->initParams($params);
