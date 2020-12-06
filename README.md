@@ -21,25 +21,6 @@ The package will automatically register itself.
 
 ## Usage
 
-### Bard
-
-```blade
-@bard($entry['content'])
-    <p>Type is {{ $set['type'] }}</p>
-    @include("partials/{$set['type']}", [ 'data' => $set['content']])
-@endbard
-```
-
-If a set has multiple fields, they will be included in `$set['content']` as an array.
-
-```blade
-@bard($entry['content'])
-    @if($entry['type'] === 'image')
-        <img src="{{ $set['content']['src'] }}" alt="{{ $set['content']['alt'] }}">
-    @endif
-@endbard
-```
-
 ### Collection
 
 ```blade
@@ -47,6 +28,30 @@ If a set has multiple fields, they will be included in `$set['content']` as an a
     {{ $entry['title'] }}
 @endcollection
 ```
+
+### Data
+
+Use this when you have Statamic data but it's a `Value` object. This will return a keyed array with all the fields as string/ints/arrays (recursively).
+
+```blade
+@data($theValueObject')
+    {{ $fieldYouWant }}
+@enddata
+```
+
+### Entry
+
+Gets all the data in an entry. In the example below the data is a replicator, so you have to walk through the sets.
+
+```blade
+@entry('the_collection_handle', 'entry-slug')
+    @foreach($replicator as $set)
+        <p>Type is {{ $set['type'] }}</p>
+        @include("partials/{$set['type']}", $set)
+    @endforeach
+@endentry
+```
+
 
 ### Globals
 
