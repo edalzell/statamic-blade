@@ -91,6 +91,14 @@ You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as t
 @site('short_locale')
 ```
 
+## Taxonomy
+
+```blade
+@taxonomy('tags')
+    <p>Title is {{ $term['title'] }}</p>
+@endtaxonomy
+```
+
 ## Testing
 
 Run the tests with:
