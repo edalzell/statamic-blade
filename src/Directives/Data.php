@@ -3,6 +3,7 @@
 namespace Edalzell\Blade\Directives;
 
 use Edalzell\Blade\Concerns\IsDirective;
+use Statamic\Stache\Query\Builder;
 
 class Data
 {
@@ -15,6 +16,10 @@ class Data
 
     public function handle($data)
     {
+        if ($data instanceof Builder) {
+            return $this->getAugmentedValue($data->get());
+        }
+
         return $this->getAugmentedValue($data->value());
     }
 }
