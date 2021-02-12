@@ -88,7 +88,7 @@ trait IsDirective
             return $data->value();
         }
 
-        if (method_exists($data, 'toAugmentedArray')) {
+        if (is_object($data) && method_exists($data, 'toAugmentedArray')) {
             return $this->getAugmentedValue($data->toAugmentedArray());
         }
 
