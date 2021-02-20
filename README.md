@@ -34,7 +34,7 @@ The package will automatically register itself.
 Use this when you have Statamic data but it's a `Value` object. This will return a keyed array with all the fields as string/ints/arrays (recursively).
 
 ```blade
-@data($theValueObject')
+@data($theValueObject)
     {{ $fieldYouWant }}
 @enddata
 ```
