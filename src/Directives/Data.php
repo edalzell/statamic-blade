@@ -3,6 +3,7 @@
 namespace Edalzell\Blade\Directives;
 
 use Edalzell\Blade\Concerns\IsDirective;
+use Statamic\Fields\Value;
 use Statamic\Stache\Query\Builder;
 
 class Data
@@ -20,6 +21,10 @@ class Data
             return $this->getAugmentedValue($data->get());
         }
 
-        return $this->getAugmentedValue($data->value());
+        if ($data instanceof Value) {
+            return $this->getAugmentedValue($data->value());
+        }
+
+        return $this->getAugmentedValue($data);
     }
 }
