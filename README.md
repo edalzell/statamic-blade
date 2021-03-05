@@ -52,6 +52,19 @@ Gets all the data in an entry. In the example below the data is a replicator, so
 @endentry
 ```
 
+### Glide
+
+Generates the glide image.
+
+```blade
+@glide('/assets/IMG_1325.jpeg', ['width' => 100])
+    <p>URL is {{ $url }}</p>
+    <img src="{{ $url }}">
+    <p>Width is {{ $width }}</p>
+    <p>Hight is {{ $height }}</p>
+@endglide
+```
+
 
 ### Globals
 
