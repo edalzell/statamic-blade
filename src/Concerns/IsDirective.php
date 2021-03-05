@@ -113,6 +113,7 @@ trait IsDirective
                         unset($key);
                     }
                     unset($'.$variable.');
+                    extract($__data ?? []);
                 ?>';
     }
 
