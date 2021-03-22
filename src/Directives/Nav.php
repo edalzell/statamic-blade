@@ -20,7 +20,10 @@ class Nav extends Structure
     {
         $this->initParams($params);
 
-        return $this->structure($handle);
+        $results = tag('nav', array_merge(['handle'=>$handle], $params));
+
+        // return $this->structure($handle);
+        return $results;
     }
 
     private function initParams($params = [])

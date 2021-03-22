@@ -17,6 +17,8 @@ class Glide
 
     public function handle(string $path, array $params = [])
     {
+        // this returns a string, not sure how to make it an array
+        // return tag('glide', array_merge(['src'=>$path], $params));
         $data = (new GlideTag)
             ->setParser(Antlers::parser())
             ->setContext([])

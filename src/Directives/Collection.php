@@ -28,7 +28,9 @@ class Collection
         $this->limit();
         $this->orderBy();
 
-        return $this->getAugmentedValue($this->collectionQuery->get());
+        $results = tag('collection', array_merge(['from' => $handle], $params));
+
+        return $this->getAugmentedValue($results);
     }
 
     private function filter()
