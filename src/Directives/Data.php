@@ -10,10 +10,10 @@ class Data
 {
     use IsDirective;
 
-    public $directive = 'data';
-    public $key = 'data';
-    public $type = 'array';
-    public $method = 'handle';
+    protected string $directive = 'data';
+    protected string $key = 'data';
+    protected string $type = 'array';
+    protected string $method = 'handle';
 
     public function handle($data)
     {

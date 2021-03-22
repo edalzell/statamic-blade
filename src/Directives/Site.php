@@ -11,10 +11,10 @@ class Site
 {
     use IsDirective;
 
-    public $directive = 'site';
-    public $key = 'site';
-    public $type = 'both';
-    public $method = 'handle';
+    protected string $directive = 'site';
+    protected string $key = 'site';
+    protected string $type = 'both';
+    protected string $method = 'handle';
 
     public function handle()
     {

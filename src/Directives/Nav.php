@@ -11,10 +11,10 @@ class Nav extends Structure
 {
     use IsDirective;
 
-    public $directive = 'nav';
-    public $key = 'item';
+    protected string $directive = 'nav';
+    protected string $key = 'item';
     public $method = 'handleNav';
-    public $type = 'loop';
+    protected string $type = 'loop';
 
     public function handleNav(string $handle, $params = [])
     {

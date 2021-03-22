@@ -9,10 +9,10 @@ class Entry
 {
     use IsDirective;
 
-    public $directive = 'entry';
-    public $key = 'entry';
-    public $type = 'array';
-    public $method = 'handle';
+    protected string $directive = 'entry';
+    protected string $key = 'entry';
+    protected string $type = 'array';
+    protected string $method = 'handle';
 
     public function handle(string $handle, $slug)
     {

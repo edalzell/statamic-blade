@@ -9,10 +9,10 @@ class Taxonomy
 {
     use IsDirective;
 
-    public $directive = 'taxonomy';
-    public $key = 'term';
-    public $type = 'loop';
-    public $method = 'handle';
+    protected string $directive = 'taxonomy';
+    protected string $key = 'term';
+    protected string $type = 'loop';
+    protected string $method = 'handle';
 
     public function handle(string $handle)
     {

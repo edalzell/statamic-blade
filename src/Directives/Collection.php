@@ -11,10 +11,10 @@ class Collection
 {
     use IsDirective;
 
-    public $directive = 'collection';
-    public $key = 'entry';
-    public $type = 'loop';
-    public $method = 'handle';
+    protected string $directive = 'collection';
+    protected string $key = 'entry';
+    protected string $type = 'loop';
+    protected string $method = 'handle';
 
     private EntryQueryBuilder $collectionQuery;
     private array $params;

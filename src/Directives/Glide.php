@@ -10,10 +10,10 @@ class Glide
 {
     use IsDirective;
 
-    public $directive = 'glide';
-    public $key = 'glide';
-    public $type = 'array';
-    public $method = 'handle';
+    protected string $directive = 'glide';
+    protected string $key = 'glide';
+    protected string $type = 'array';
+    protected string $method = 'handle';
 
     public function handle(string $path, array $params = [])
     {

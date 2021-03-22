@@ -9,10 +9,10 @@ class GlobalSet
 {
     use IsDirective;
 
-    public $directive = 'globalset';
-    public $key = 'globalset';
-    public $type = 'both';
-    public $method = 'handle';
+    protected string $directive = 'globalset';
+    protected string $key = 'globalset';
+    protected string $type = 'both';
+    protected string $method = 'handle';
 
     public function handleKey(string $handle, string $key = null)
     {
