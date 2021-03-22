@@ -23,8 +23,10 @@ The package will automatically register itself.
 
 ### Collection
 
+Use the same params as the `{{ collection }}` tag
+
 ```blade
-@collection('pages', ['where' => 'title:My Title,author:Erin', 'limit' => 3, 'orderBy' => 'title:desc'])
+@collection('pages', ['title:is' => 'My Title', 'author:is' => 'Erin', 'limit' => 3, 'sort' => 'title:desc'])
     {{ $entry['title'] }}
 @endcollection
 ```
