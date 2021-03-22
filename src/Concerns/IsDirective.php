@@ -14,10 +14,11 @@ trait IsDirective
     public function boot()
     {
         $booter = [
-                'loop' => 'bootLoop',
-                'array' => 'bootArray',
-                'both' => 'bootBoth',
-            ];
+            'array' => 'bootArray',
+            'both' => 'bootBoth',
+            'form' => 'bootForm',
+            'loop' => 'bootLoop',
+        ];
 
         $this->{$booter[$this->type]}();
     }
@@ -52,6 +53,16 @@ trait IsDirective
                 "end{$this->directive}",
                 fn () => $this->endAsArray($this->key)
             );
+    }
+
+    public function bootForm()
+    {
+        Blade::directive(
+                $this->directive,
+                fn ($expression) => $this->asForm(get_class($this), $this->method, $expression, $this->key)
+            );
+
+        Blade::directive("end{$this->directive}", fn () => $this->endAsForm());
     }
 
     public function bootLoop()
@@ -100,6 +111,16 @@ trait IsDirective
         return $this->php("extract($${key} = Facades\\${class}::${method}(${params}));");
     }
 
+    private function asForm($class, $method, $params, $as)
+    {
+        return $this->php("echo Facades\\${class}::${method}(${params})");
+    }
+
+    private function asLoop($class, $method, $params, $as)
+    {
+        return $this->php("foreach(Facades\\${class}::${method}(${params}) as $${as}) {");
+    }
+
     private function asString($class, $method, $params)
     {
         return $this->php("echo Facades\\${class}::${method}(${params});");
@@ -117,9 +138,9 @@ trait IsDirective
                 ?>';
     }
 
-    private function asLoop($class, $method, $params, $as)
+    private function endAsForm()
     {
-        return $this->php("foreach(Facades\\${class}::${method}(${params}) as $${as}) {");
+        return '</form>';
     }
 
     private function endAsLoop()
