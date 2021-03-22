@@ -58,18 +58,15 @@ Gets all the data in an entry. In the example below the data is a replicator, so
 You can pass in the  same parameters that `{{ form:create }}` supports.
 Any other parameters will be added to the `<form>` tag as attributes.
 
-To access the errors, see the commented code below.
+To access the errors, use standard Blade [errors](https://laravel.com/docs/8.x/blade#validation-errors)
+but pass in the proper error bag, which is `form.your-form-handle`.
 
 ```blade
 @form('contact_us', ['redirect'=> '/', 'error_redirect' => '', 'allow_request_redirect' => false, 'id' => 'form-id', 'class' => 'foo'])
-    {{-- @if ($errors->getBag('form.contact_us')->messages())
-        @foreach ($errors->getBag('form.contact_us')->messages() as $field => $messages)
-                $messages is an array of messages
-                alternatively you could loop through $errors->getBag('form.contact_us')->keys()
-                and use $errors->getBag('form.contact_us')->first($key)
-        @endforeach
-    @endif --}}
 Email: <input type="text" name="email" />
+@error('email', 'form.contact_us')
+    <div>{{ $message }}</div>
+@enderror
 <button>Contact Us</button>
 @endform
 ```
