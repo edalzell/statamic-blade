@@ -10,7 +10,7 @@ function modify($value): Modify
     return Modify::value($value);
 }
 
-function tag(string $name, array $params = [])
+function tag(string $name, array $params = [], array $context = [])
 {
     if ($pos = strpos($name, ':')) {
         $original_method = substr($name, $pos + 1);
@@ -24,7 +24,7 @@ function tag(string $name, array $params = [])
         'parser'     => app(Parser::class),
         'params'     => $params,
         'content'    => '',
-        'context'    => [],
+        'context'    => $context,
         'tag'        => $name.':'.$original_method,
         'tag_method' => $original_method,
     ]);
