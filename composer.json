@@ -4,7 +4,7 @@
     "description": "Blade directives that work w/ Statamic",
     "require": {
         "php": "^7.4 || ^8.0",
-        "laravel/framework": "^7.0 || ^8.0",
+        "laravel/framework": "^7.30.3 || ^8.24",
         "statamic/cms": "^3.0"
     },
     "require-dev": {
