@@ -21,6 +21,22 @@ The package will automatically register itself.
 
 ## Usage
 
+### Breadcrumbs
+
+```blade
+@breadcrumbs
+    $item['url']
+@endbreadcrumbs
+```
+
+You can use the [same parameters](https://statamic.dev/tags/nav-breadcrumbs#parameters) as the `nav:breadcrumbs` tag.
+
+```blade
+@breadcrumbs(['include_home' => false, 'reverse' => true])
+    $item['url']
+@endbreadcrumbs
+```
+
 ### Collection
 
 Use the same params as the `{{ collection }}` tag
