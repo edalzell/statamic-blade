@@ -9,19 +9,25 @@ use Statamic\Fields\Value;
 
 trait AugmentsValues
 {
-    protected function getAugmentedValue($data)
+    protected function getAugmentedValue($data, $level = 0)
     {
+        if ($level > 2) {
+            return $data;
+        }
+
+        $level++;
+
         if ($data instanceof Carbon) {
             return $data;
         }
 
         if ($data instanceof JsonSerializable || $data instanceof Collection) {
-            return $this->getAugmentedValue($data->jsonSerialize());
+            return $this->getAugmentedValue($data->jsonSerialize(), $level);
         }
 
         if (is_array($data)) {
             return collect($data)
-                    ->map(fn ($value) => $this->getAugmentedValue($value))
+                    ->map(fn ($value) => $this->getAugmentedValue($value, $level))
                     ->all();
         }
 
@@ -30,7 +36,7 @@ trait AugmentsValues
         }
 
         if (is_object($data) && method_exists($data, 'toAugmentedArray')) {
-            return $this->getAugmentedValue($data->toAugmentedArray());
+            return $this->getAugmentedValue($data->toAugmentedArray(), $level);
         }
 
         return $data;
