@@ -21,6 +21,14 @@ The package will automatically register itself.
 
 ## Usage
 
+### Automatic augmentation of Statamic values
+
+If you want values to be augmented automatically in your Blade views, you can replace the
+
+`Illuminate\View\ViewServiceProvider::class` in the providers of your `config/app.php` with `\Edalzell\Blade\Augmentation\AugmentationViewServiceProvider`
+
+This will replace all instances of `\Statamic\Fields\Value` by their augmented values.
+
 ### Breadcrumbs
 
 ```blade

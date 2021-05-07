@@ -11,6 +11,8 @@ use Statamic\Support\Str;
 
 trait IsDirective
 {
+    use AugmentsValues;
+
     public function boot()
     {
         $booter = [
@@ -73,37 +75,6 @@ trait IsDirective
             );
 
         Blade::directive("end{$this->directive}", fn () => $this->endAsLoop());
-    }
-
-    protected function getAugmentedValue($data)
-    {
-        if (is_null($data)) {
-            return;
-        }
-
-        if ($data instanceof Carbon) {
-            return $data;
-        }
-
-        if ($data instanceof JsonSerializable || $data instanceof Collection) {
-            return $this->getAugmentedValue($data->jsonSerialize());
-        }
-
-        if (is_array($data)) {
-            return collect($data)
-                    ->map(fn ($value) => $this->getAugmentedValue($value))
-                    ->all();
-        }
-
-        if ($data instanceof Value) {
-            return $data->value();
-        }
-
-        if (is_object($data) && method_exists($data, 'toAugmentedArray')) {
-            return $this->getAugmentedValue($data->toAugmentedArray());
-        }
-
-        return $data;
     }
 
     private function asArray($key, $class, $method, $params = null)
