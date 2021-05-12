@@ -29,6 +29,17 @@ If you want values to be augmented automatically in your Blade views, you can re
 
 This will replace all instances of `\Statamic\Fields\Value` by their augmented values.
 
+### Assets
+
+```blade
+@asset('url/to/asset.jpg')
+    URl: {{ $asset['url'] }}
+    Permalink: {{ $asset['permalink'] }}
+    Alt: {{ $asset['alt'] }}
+    ...other fields
+@endasset
+```
+
 ### Breadcrumbs
 
 ```blade
