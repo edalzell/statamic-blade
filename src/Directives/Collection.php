@@ -20,8 +20,12 @@ class Collection
             array_merge(['from' => $handle], $params)
         );
 
-        if ($entries->isEmpty()) {
+        if (collect($entries)->isEmpty()) {
             return [['no_results' => true]];
+        }
+
+        if (in_array('paginate', $params)) {
+            return [$this->getAugmentedValue($entries)];
         }
 
         return $this->getAugmentedValue($entries);
