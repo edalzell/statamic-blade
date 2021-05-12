@@ -71,6 +71,7 @@ Use the same params as the `{{ collection }}` tag
 ```
 
 #### Collection Pagination
+```blade
 @collection('the_collection', ['limit' => 2, 'paginate' => true])
     @foreach($entry['entries'] as $entry)
         @data($entry)
@@ -78,7 +79,7 @@ Use the same params as the `{{ collection }}` tag
         @enddata
     @endforeach
 @endcollection
-
+```
 ### Data
 
 Use this when you have Statamic data but it's a `Value` object. This will return a keyed array with all the fields as string/ints/arrays (recursively).
