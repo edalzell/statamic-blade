@@ -2,11 +2,7 @@
 
 namespace Edalzell\Blade\Concerns;
 
-use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Blade;
-use JsonSerializable;
-use Statamic\Fields\Value;
 use Statamic\Support\Str;
 
 trait IsDirective
