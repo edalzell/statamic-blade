@@ -61,8 +61,12 @@ You can use the [same parameters](https://statamic.dev/tags/nav-breadcrumbs#para
 Use the same params as the `{{ collection }}` tag
 
 ```blade
-@collection('pages', ['title:is' => 'My Title', 'author:is' => 'Erin', 'limit' => 3, 'sort' => 'title:desc'])
-    {{ $entry['title'] }}
+@collection('pages', ['title:is' => 'My Title', 'author:is' => 'Erin', 'limit' => 3, 'sort' => 'title:desc'])\
+    @if($entry['no_results'])
+        <p>There are no results</p>
+    @else
+        {{ $entry['title'] }}
+    @endif
 @endcollection
 ```
 

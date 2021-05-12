@@ -15,11 +15,15 @@ class Collection
 
     public function handle(string $handle, array $params = [])
     {
-        return $this->getAugmentedValue(
-            tag(
-                'collection',
-                array_merge(['from' => $handle], $params)
-            )
+        $entries = tag(
+            'collection',
+            array_merge(['from' => $handle], $params)
         );
+
+        if ($entries->isEmpty()) {
+            return [['no_results' => true]];
+        }
+
+        return $this->getAugmentedValue($entries);
     }
 }
