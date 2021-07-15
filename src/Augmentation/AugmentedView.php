@@ -14,6 +14,10 @@ class AugmentedView extends View
     {
         $variables = parent::gatherData();
 
+        if (!$this->isRouteServedByStatamic($variables)) {
+            return $variables;
+        }
+
         if (Statamic::isCpRoute()) {
             return $variables;
         }
@@ -21,5 +25,10 @@ class AugmentedView extends View
         return array_map(function ($data) {
             return $this->getAugmentedValue($data);
         }, $variables);
+    }
+
+    private function isRouteServedByStatamic(array $variables): bool
+    {
+        return isset($variables['cp_url']);
     }
 }
