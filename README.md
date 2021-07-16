@@ -174,8 +174,10 @@ You can use the [same parameters](https://statamic.dev/tags/nav#parameters) as t
 
 ## Taxonomy
 
+Use the same params as the `{{ taxonomy }}` tag
+
 ```blade
-@taxonomy('tags')
+@taxonomy('tags', ['limit' => 6, 'sort' => 'entries_count:desc'])
     <p>Title is {{ $term['title'] }}</p>
 @endtaxonomy
 ```
