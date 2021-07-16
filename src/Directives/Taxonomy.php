@@ -3,7 +3,6 @@
 namespace Edalzell\Blade\Directives;
 
 use Edalzell\Blade\Concerns\IsDirective;
-use Statamic\Facades\Term;
 
 class Taxonomy
 {
@@ -14,8 +13,13 @@ class Taxonomy
     protected string $type = 'loop';
     protected string $method = 'handle';
 
-    public function handle(string $handle)
+    public function handle(string $handle, array $params = [])
     {
-        return $this->getAugmentedValue(Term::whereTaxonomy($handle));
+        $terms = tag(
+            'taxonomy',
+            array_merge(['from' => $handle], $params)
+        );
+
+        return $this->getAugmentedValue($terms);
     }
 }
