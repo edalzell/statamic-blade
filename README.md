@@ -29,6 +29,62 @@ If you want values to be augmented automatically in your Blade views, you can re
 
 This will replace all instances of `\Statamic\Fields\Value` by their augmented values.
 
+### Antlers
+
+If tag(), modify() or any of the below directives aren't achieving the desired outcome, it is possible to try the Antlers directive to render Antlers within Blade.
+
+```blade
+@antlers($str, $variables = [])
+```
+
+We do this by using the Antlers Facade and it's parse method.
+```php
+\Statamic\Facades\Antlers::parse($str, $variables = [])
+```
+
+There are some things to note however, for these examples we will describe `$str` as the content or string that you wish to have Antlers parse into Html, while `$variables` is the context or data that will be passed to Antlers and is used to map variables and data to Antlers.
+
+An example of this would be if we passed $str into our view,
+```php
+view('home', ['str' => "{{ 'foo' }}"]);
+```
+```blade
+This will output foo.
+@antlers($str)
+```
+
+But now if we instead remove the single quotes from foo, then we will need to provide the context of what foo is.
+```php
+view('home', [
+    'str' => "{{ 'foo' }}",
+    'variables' = ['foo' => 'bar']
+]);
+```
+```blade
+This will output the value of foo that we assigned in the context, which would output bar.
+@antlers($str, $variables)
+```
+
+It is also possible to use the directive inline.
+If passing everything inline, then the Antlers content will need to have @ added to its curly braces. quotes will need to be escaped too.
+```blade
+This will output testing.
+@antlers('@{{ test }}', ['test' => 'testing'])
+```
+
+You can also use @php blocks to define the content and or context.
+```blade
+@php
+    $content = '{{ test | ucfirst }}';
+    $context = ['test' => 'testing'];
+@endphp
+
+This will output Testing.
+@antlers($content, $context)
+```
+
+This directive can be used in a bunch of different ways, let your imagination run wild! All you need to do is provide the content and then any context that it might need, how you get/set or provide those doesn't really matter that much.
+
 ### Assets
 
 ```blade
