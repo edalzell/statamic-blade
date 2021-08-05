@@ -37,7 +37,7 @@ If tag(), modify() or any of the below directives aren't achieving the desired o
 @antlers($str, $variables = [])
 ```
 
-We do this by using the Antlers Facade and it's parse method.
+We do this by using the Antlers Facade and its parse method.
 ```php
 \Statamic\Facades\Antlers::parse($str, $variables = [])
 ```
