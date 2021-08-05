@@ -56,7 +56,7 @@ This will output foo.
 But now if we instead remove the single quotes from foo, then we will need to provide the context of what foo is.
 ```php
 view('home', [
-    'str' => "{{ 'foo' }}",
+    'str' => "{{ foo }}",
     'variables' = ['foo' => 'bar']
 ]);
 ```
