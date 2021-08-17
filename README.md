@@ -1,6 +1,8 @@
 # Blade Directives
 
+<!-- statamic:hide -->
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+<!-- /statamic:hide -->
 
 This package provides custom directives so you can easily access Statamic data in your Blade templates.
 
