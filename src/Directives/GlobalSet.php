@@ -16,7 +16,13 @@ class GlobalSet
 
     public function handleKey(string $handle, string $key = null)
     {
-        return $this->globalSet($handle)->get($key);
+        $globalSet = $this->globalSet($handle);
+
+        if (is_null($globalSet)) {
+            return null;
+        }
+
+        return $globalSet->get($key);
     }
 
     public function handle(string $handle)
@@ -26,6 +32,12 @@ class GlobalSet
 
     private function globalSet(string $handle)
     {
-        return GlobalSetAPI::findByHandle($handle)->inCurrentSite();
+        $handle = GlobalSetAPI::findByHandle($handle);
+
+        if (is_null($handle)) {
+            return null;
+        }
+
+        return $handle->inCurrentSite();
     }
 }
