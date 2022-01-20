@@ -4,6 +4,8 @@ use Illuminate\Support\Str;
 use Statamic\Modifiers\Modify;
 use Statamic\Tags\Loader as TagLoader;
 use Statamic\View\Antlers\Parser;
+use Statamic\Entries\Entry;
+use Edalzell\Blade\Augmentation\AugmentedEntry;
 
 if (! function_exists('modify')) {
     /**
@@ -47,5 +49,19 @@ if (! function_exists('tag')) {
         ]);
 
         return $tag->$method();
+    }
+}
+
+if(! function_exists('augment_entry')) {
+    /**
+     * Augment an entire entry to an array.
+     * 
+     * @param \Statamic\Entries\Entry $entry
+     * @return array
+     */
+    function augment_entry(Entry $entry): array
+    {
+        $augmentor = new AugmentedEntry();
+        return $augmentor->gatherEntryData($entry);
     }
 }
