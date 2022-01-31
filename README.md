@@ -41,10 +41,10 @@ If tag(), modify() or any of the below directives aren't achieving the desired o
 
 We do this by using the Antlers Facade and its parse method.
 ```php
-\Statamic\Facades\Antlers::parse($str, $variables = [])
+\Statamic\Facades\Antlers::parse($str, /* $variables = [] or collect(get_defined_vars())->except('__data', '__path')->toArray() */)
 ```
 
-There are some things to note however, for these examples we will describe `$str` as the content or string that you wish to have Antlers parse into Html, while `$variables` is the context or data that will be passed to Antlers and is used to map variables and data to Antlers.
+There are some things to note however, for these examples we will describe `$str` as the content or string that you wish to have Antlers parse into Html, while `$variables` is the context or data that will be passed to Antlers and is used to map variables and data to Antlers, The context will automatically be added to the `Antlers::parse` call, however if you define the second parameter `$variables` then the default context will be ignored and your supplied context will act as an override.
 
 An example of this would be if we passed $str into our view,
 ```php
@@ -86,6 +86,8 @@ This will output Testing.
 ```
 
 This directive can be used in a bunch of different ways, let your imagination run wild! All you need to do is provide the content and then any context that it might need, how you get/set or provide those doesn't really matter that much.
+
+The default context can be obtained with the following code `collect(get_defined_vars())->except('__data', '__path')->toArray()`
 
 ### Assets
 
@@ -185,7 +187,7 @@ Loops over the fields for a form.
 ```blade
 @formfields('contact_us')
 <label>{{ $field['display'] }}</label>
-<input type="{{ $field['type'] }}" name="{{ $field['handle'] }}" placeholder="{{ $field['placeholder'] ?? '' }}" /> 
+<input type="{{ $field['type'] }}" name="{{ $field['handle'] }}" placeholder="{{ $field['placeholder'] ?? '' }}" />
 @endformfields
 ```
 
