@@ -6,10 +6,16 @@
 
 This package provides custom directives so you can easily access Statamic data in your Blade templates.
 
+
+# ARCHIVED
+
+Note that with the release of Statamic 3.3, this addon is no longer needed. Please update to 3.3 and use the native `Statamic::tag(...)` [functionality](https://statamic.dev/upgrade-guide/3-2-to-3-3#use-tags-in-blade). If you need any changes, please fork.
+
+
 ## Requirements
 
 - PHP 7.4+
-- Statamic v3
+- Statamic v3.2
 
 ## Installation
 
